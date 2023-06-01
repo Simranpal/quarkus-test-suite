@@ -2,6 +2,7 @@
 set -eux
 mvn -B -V clean verify -fae \
     -s settings.xml \
+    -Dmaven.repo.local=$PWD/local-repo \
     -Dquarkus.platform.group-id=$QUARKUS_PLATFORM_GROUP_ID \
     -Dquarkus.platform.artifact-id=$QUARKUS_PLATFORM_ARTIFACT_ID \
     -Dquarkus.platform.version=$QUARKUS_VERSION \
