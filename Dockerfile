@@ -9,11 +9,9 @@ RUN wget -O sdkman.sh https://get.sdkman.io && /bin/bash sdkman.sh
 RUN source "/root/.sdkman/bin/sdkman-init.sh" && sdk install java 22.3.2.r17-mandrel && sdk install maven 3.8.7
 ENV SDKMAN_DIR=/root/.sdkman
 
-# install oc bin
-RUN wget -q https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz -O /tmp/oc.tar.gz \
-	&& tar -xvf /tmp/oc.tar.gz oc \
-	&& mv oc /usr/local/bin \
-	&& rm -f /tmp/oc.tar.gz
+# install oc client
+ADD https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.13.0/openshift-client-linux-4.13.0.tar.gz oc.tar.gz
+RUN tar -xaf oc.tar.gz oc && mv oc /usr/local/bin/
 
 # these versions should be updated for every release
 ENV QUARKUS_BRANCH=2.13
