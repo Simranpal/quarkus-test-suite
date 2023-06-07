@@ -26,10 +26,16 @@ RUN git clone --depth=1 -b ${QUARKUS_BRANCH} https://github.com/quarkus-qe/quark
 WORKDIR /tmp/tests
 RUN chmod -R 777 /tmp/tests
 
+RUN mkdir --mode=777 /tmp/home
+ENV HOME=/tmp/home
+
 # maven settings for repository
-ADD settings.xml /tmp/tests/
+ADD settings.xml /tmp/home/.m2/settings.xml
 
 ADD --chmod=755 run.sh /tmp/tests/
+ADD --chmod=755 oc_login.sh /tmp/tests/
+# to debug on local
+# ADD --chmod=755 oc_login_local.sh /tmp/tests/oc_login.sh
 
 # test results are in $PROJECT/target/failsafe-reports/*.xml for every PROJECT in $PROJECTS.
-CMD source "/root/.sdkman/bin/sdkman-init.sh" && ./run.sh
+CMD ./oc_login.sh && source "/root/.sdkman/bin/sdkman-init.sh" && ./run.sh
