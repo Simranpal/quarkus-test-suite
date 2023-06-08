@@ -33,9 +33,6 @@ ENV HOME=/tmp/home
 ADD settings.xml /tmp/home/.m2/settings.xml
 
 ADD --chmod=755 run.sh /tmp/tests/
-ADD --chmod=755 oc_login.sh /tmp/tests/
-# to debug on local
-# ADD --chmod=755 oc_login_local.sh /tmp/tests/oc_login.sh
 
 # test results are in $PROJECT/target/failsafe-reports/*.xml for every PROJECT in $PROJECTS.
-CMD ./oc_login.sh && source "/root/.sdkman/bin/sdkman-init.sh" && ./run.sh
+CMD source "/root/.sdkman/bin/sdkman-init.sh" && ./run.sh
