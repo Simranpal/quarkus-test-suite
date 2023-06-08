@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export _JAVA_OPTIONS=-Duser.home=$HOME
+
 set -eux
 mvn -B -V clean verify -fae \
     -Dmaven.repo.local=$PWD/local-repo \
@@ -9,4 +11,5 @@ mvn -B -V clean verify -fae \
     -Dquarkus-plugin.version=$QUARKUS_VERSION \
     -Proot-modules,http-modules,sql-db-modules,monitoring-modules \
     -Dopenshift \
-    -pl $PROJECTS
+    -pl $PROJECTS \
+    -Dit.test=OpenShiftFileSystemConfigMapConfigIT
