@@ -1,8 +1,8 @@
 #!/bin/bash
+set -eux
 
 export _JAVA_OPTIONS=-Duser.home=$HOME
 
-set -eux
 mvn -B -V clean verify -fae \
     -Dmaven.repo.local=$PWD/local-repo \
     -Dquarkus.platform.group-id=$QUARKUS_PLATFORM_GROUP_ID \
@@ -11,5 +11,4 @@ mvn -B -V clean verify -fae \
     -Dquarkus-plugin.version=$QUARKUS_VERSION \
     -Proot-modules,http-modules,sql-db-modules,monitoring-modules \
     -Dopenshift \
-    -pl $PROJECTS \
-    -Dit.test=OpenShiftFileSystemConfigMapConfigIT
+    -pl $PROJECTS
